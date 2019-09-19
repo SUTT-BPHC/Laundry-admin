@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Laundry admin</string>
+
+    <string name="add_order">New order</string>
+    <string name="order_complete">Order complete</string>
+
+    <string name="enter_room_no">Enter room number</string>
+    <string name="enter_amount">Enter amount</string>
+
+    <string name="order_added">Order added</string>
+    <string name="order_mark_complete">Order marked as completed</string>
+
+</resources>
