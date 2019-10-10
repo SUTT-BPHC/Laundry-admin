@@ -1,18 +1,14 @@
 package com.example.laundryadmin;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -45,6 +41,7 @@ public class AddLaundryFragment extends Fragment {
 				Snackbar.make(rootView.findViewById(R.id.add_laundry_coordinator), getString(R.string.order_added), Snackbar.LENGTH_LONG).show();
 				roomEditText.setText("");
 				amountEditText.setText("");
+                roomEditText.requestFocus();
 			}
 		});
 
