@@ -15,6 +15,10 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class AddLaundryFragment extends Fragment {
 
 	public AddLaundryFragment(){};
@@ -39,12 +43,13 @@ public class AddLaundryFragment extends Fragment {
 			public void onClick(View view) {
 				String roomNo = roomEditText.getText().toString().toUpperCase();
 				Double amount = Double.parseDouble(amountEditText.getText().toString());
+				String curDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
 
 				//TODO: Add code to upload data to database (making sure verification is done)
 				mDatabase = FirebaseDatabase.getInstance().getReference();
 				mDatabase.child("Laundry orders").child(roomNo).child("amount").setValue(amount);
-				mDatabase.child("Laundry orders").child(roomNo).child("isDone").setValue("false");
-				mDatabase.child("Laundry orders").child(roomNo).child("givenDate").setValue("10-10-2019");
+				mDatabase.child("Laundry orders").child(roomNo).child("done").setValue(false);
+				mDatabase.child("Laundry orders").child(roomNo).child("givenDate").setValue(curDate);
 
 				Snackbar.make(rootView.findViewById(R.id.add_laundry_coordinator), getString(R.string.order_added), Snackbar.LENGTH_LONG).show();
 				roomEditText.setText("");

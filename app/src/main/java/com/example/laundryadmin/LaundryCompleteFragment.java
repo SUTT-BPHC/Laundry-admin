@@ -42,7 +42,7 @@ public class LaundryCompleteFragment extends Fragment {
 				mDatabase = FirebaseDatabase.getInstance().getReference();
 
 				Map<String, Object> map = new HashMap<>();
-				map.put("isDone", "true");
+                map.put("done", true);
 
 				mDatabase.child("Laundry orders").child(roomNo).updateChildren(map);
 				Snackbar.make(rootView.findViewById(R.id.complete_laundry_coordinator), getString(R.string.order_mark_complete), Snackbar.LENGTH_LONG).show();
