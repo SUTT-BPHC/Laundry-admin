@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class AddLaundryFragment extends Fragment {
 
@@ -20,6 +22,8 @@ public class AddLaundryFragment extends Fragment {
 	FloatingActionButton fabDone;
 	EditText roomEditText;
 	EditText amountEditText;
+
+	private DatabaseReference mDatabase;
 
 	@Nullable
 	@Override
@@ -33,10 +37,14 @@ public class AddLaundryFragment extends Fragment {
 		fabDone.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				String roomNo = roomEditText.getText().toString();
+				String roomNo = roomEditText.getText().toString().toUpperCase();
 				Double amount = Double.parseDouble(amountEditText.getText().toString());
 
 				//TODO: Add code to upload data to database (making sure verification is done)
+				mDatabase = FirebaseDatabase.getInstance().getReference();
+				mDatabase.child("Laundry orders").child(roomNo).child("amount").setValue(amount);
+				mDatabase.child("Laundry orders").child(roomNo).child("isDone").setValue("false");
+				mDatabase.child("Laundry orders").child(roomNo).child("givenDate").setValue("10-10-2019");
 
 				Snackbar.make(rootView.findViewById(R.id.add_laundry_coordinator), getString(R.string.order_added), Snackbar.LENGTH_LONG).show();
 				roomEditText.setText("");
@@ -44,8 +52,6 @@ public class AddLaundryFragment extends Fragment {
                 roomEditText.requestFocus();
 			}
 		});
-
-
 		return rootView;
 	}
 }

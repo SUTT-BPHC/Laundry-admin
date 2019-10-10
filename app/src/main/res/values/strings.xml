@@ -10,4 +10,7 @@
     <string name="order_added">Order added</string>
     <string name="order_mark_complete">Order marked as completed</string>
 
+    <string name="order_given">Give order</string>
+    <string name="order_mark_given">Order marked as given</string>
+
 </resources>

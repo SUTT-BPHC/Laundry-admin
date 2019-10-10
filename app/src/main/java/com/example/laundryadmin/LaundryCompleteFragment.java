@@ -1,20 +1,22 @@
 package com.example.laundryadmin;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LaundryCompleteFragment extends Fragment {
 
@@ -22,6 +24,8 @@ public class LaundryCompleteFragment extends Fragment {
 
 	FloatingActionButton fabDone;
 	EditText roomEditText;
+
+	private DatabaseReference mDatabase;
 
 	@Nullable
 	@Override
@@ -34,10 +38,13 @@ public class LaundryCompleteFragment extends Fragment {
 		fabDone.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				String roomNo = roomEditText.getText().toString();
+				String roomNo = roomEditText.getText().toString().toUpperCase();
+				mDatabase = FirebaseDatabase.getInstance().getReference();
 
-				//TODO: Add code to upload data to database (making sure verification is done)
+				Map<String, Object> map = new HashMap<>();
+				map.put("isDone", "true");
 
+				mDatabase.child("Laundry orders").child(roomNo).updateChildren(map);
 				Snackbar.make(rootView.findViewById(R.id.complete_laundry_coordinator), getString(R.string.order_mark_complete), Snackbar.LENGTH_LONG).show();
 				roomEditText.setText("");
 			}
